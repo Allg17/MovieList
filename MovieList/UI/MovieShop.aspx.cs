@@ -64,8 +64,16 @@ namespace MovieList.UI
 
         protected void ItemLinkButton_Click(object sender, EventArgs e)
         {
-            Response.Write("<script>window.open('cMoviesCar.aspx','_blanck');</script");
-            Server.Transfer("MovieShop.aspx");
+            if (((MovieCar)ViewState["MovieCar"]).Detalle.Count > 0)
+            {
+
+                Response.Write("<script>window.open('cMoviesCar.aspx','_blanck');</script");
+                Server.Transfer("MovieShop.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, typeof(Page), "toastr_message", script: "toastr['info']('Debe agregar Antes de continuar!!');", addScriptTags: true);
+            }
         }
     }
 }
